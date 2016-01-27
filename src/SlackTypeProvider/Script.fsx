@@ -1,8 +1,17 @@
-// Learn more about F# at http://fsharp.org. See the 'F# Tutorial' project
-// for more guidance on F# programming.
+#I @"../../packages/Newtonsoft.Json/lib/net40"
+#r "Newtonsoft.Json.dll"
+#I "bin/debug/"
+#r "SlackTypeProvider.dll"
 
-#load "Library.fs"
-open SlackTypeProvider
+open SlackProvider
 
-let num = Library.hello 42
-printfn "%i" num
+type TSlack = SlackTypeProvider<token="C:/keys/slack_token.txt">
+let slack = TSlack()
+let channels = slack.Channels
+let all = channels.GetAll()
+
+slack.Users.romain_flechner.Send("Hi")
+slack.Users.romain_flechner.Send("Hi 2",botname="robot 4", iconUrl="http://statics.romcyber.com/icones/robot1_48x48.jpg")
+
+
+

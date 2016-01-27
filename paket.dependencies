@@ -1,4 +1,5 @@
 source https://nuget.org/api/v2
+nuget Newtonsoft.Json
 
 group Build
   source https://nuget.org/api/v2
