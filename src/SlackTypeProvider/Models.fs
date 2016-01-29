@@ -1,4 +1,4 @@
-﻿namespace ParisLoveFSharp.Models
+﻿namespace SlackProvider.Models
 
 open System
 open System.Net

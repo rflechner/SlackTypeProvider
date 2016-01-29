@@ -8,7 +8,7 @@ open System
 open System.IO
 open System.Net
 open Newtonsoft.Json
-open ParisLoveFSharp.Models
+open SlackProvider.Models
 
 [<TypeProvider>]
 type SlackTypeProvider () as this =
