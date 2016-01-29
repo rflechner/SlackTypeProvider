@@ -27,7 +27,7 @@ type SlackTypeProvider () as this =
         File.ReadAllText(path).Trim()
 
     let parseToken (tokenOrPath:string) =
-        if Uri.CheckSchemeName tokenOrPath
+        if Uri.IsWellFormedUriString(tokenOrPath, UriKind.Absolute)
         then
             let uri = Uri tokenOrPath
             match uri.Scheme with
