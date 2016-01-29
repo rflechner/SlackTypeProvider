@@ -176,13 +176,17 @@ Target "NuGet" (fun _ ->
     Paket.Pack(fun p ->
         { p with
             OutputPath = "bin"
+            //LockDependencies = true
+            SpecificVersions = ["Newtonsoft.Json", "8.0.2"]
             Version = release.NugetVersion
             ReleaseNotes = toLines release.Notes})
 )
 
 Target "PublishNuget" (fun _ ->
+    let key = File.ReadAllText "G:/nugetkey.txt"
     Paket.Push(fun p ->
         { p with
+            ApiKey = key
             WorkingDir = "bin" })
 )
 
