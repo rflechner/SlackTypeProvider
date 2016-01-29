@@ -112,7 +112,7 @@ type SlackTypeProvider () as this =
                 InvokeCode=
                     fun [c]-> 
                         <@@
-                            let channels = %%c:ChannelDescription list
+                            let channels = %%c:ChannelDescription array
                             channels
                         @@>
                 ) |> channelsType.AddMember
@@ -123,7 +123,7 @@ type SlackTypeProvider () as this =
                 ProvidedProperty(normalize channel.Name, channelType,
                   GetterCode=fun args -> 
                     <@@
-                        let channels = (%%args.[0]:>obj) :?> ChannelDescription list
+                        let channels = (%%args.[0]:>obj) :?> ChannelDescription array
                         channels |> Seq.filter (fun c -> c.Id = id) |> Seq.head
                     @@>
                     )
@@ -134,12 +134,12 @@ type SlackTypeProvider () as this =
                     ProvidedMethod(
                         methodName = "GetAll", 
                         parameters = [],
-                        returnType = typeof<ChannelDescription list>, 
+                        returnType = typeof<ChannelDescription array>, 
                         InvokeCode = 
                             fun args -> 
                                 <@@ 
                                     let p = (%%args.[0]:>obj)
-                                    let channels = (p:?>ChannelDescription list)
+                                    let channels = (p:?>ChannelDescription array)
                                     channels
                                 @@>)
             do allChannelsMeth.AddXmlDoc "Get all channels as a list"
@@ -213,7 +213,7 @@ type SlackTypeProvider () as this =
                 InvokeCode=
                     fun [c]-> 
                         <@@
-                            let users = %%c:User list
+                            let users = %%c:User array
                             users
                         @@>
                 ) |> usersType.AddMember
@@ -231,8 +231,8 @@ type SlackTypeProvider () as this =
                 ProvidedProperty(normalize user.Name, userType,
                   GetterCode=fun args -> 
                     <@@
-                        let users = (%%args.[0]:>obj) :?> User list
-                        users |> Seq.filter (fun c -> c.Id = id) |> Seq.head
+                        let users = (%%args.[0]:>obj) :?> User array
+                        users |> Array.find (fun c -> c.Id = id)
                     @@>
                     )
                 |> fun m -> m.AddXmlDoc (sprintf "Get user with id %s" id); m
@@ -242,12 +242,12 @@ type SlackTypeProvider () as this =
                     ProvidedMethod(
                         methodName = "GetAll", 
                         parameters = [],
-                        returnType = typeof<User list>, 
+                        returnType = typeof<User array>, 
                         InvokeCode = 
                             fun args -> 
                                 <@@ 
                                     let p = (%%args.[0]:>obj)
-                                    let users = (p:?>User list)
+                                    let users = (p:?>User array)
                                     users
                                 @@>)
             do allUsersMeth.AddXmlDoc "Get all users as a list"

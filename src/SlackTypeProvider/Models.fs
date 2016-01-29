@@ -16,7 +16,7 @@ type ChannelDescription =
       [<JsonProperty("is_archived")>] IsArchived:bool
       [<JsonProperty("is_general")>] IsGeneral:bool
       [<JsonProperty("is_member")>] IsMember:bool
-      [<JsonProperty("members")>] MemberIds:string list }
+      [<JsonProperty("members")>] MemberIds:string array }
 
 [<CLIMutable>]
 type User =
@@ -69,9 +69,9 @@ type SlackClient (token) =
     member x.CheckAuth () =
         x.downloadJson<AuthResult>("https://slack.com/api/auth.test","$")
     member x.GetChannels () =
-        x.downloadJson<ChannelDescription list>("https://slack.com/api/channels.list","$.channels")
+        x.downloadJson<ChannelDescription array>("https://slack.com/api/channels.list","$.channels")
     member x.GetUsers () =
-        x.downloadJson<User list>("https://slack.com/api/users.list","$.members")
+        x.downloadJson<User array>("https://slack.com/api/users.list","$.members")
     member x.GetUser id =
         x.downloadJson<User>(sprintf "https://slack.com/api/users.info?user=%s" id,"$.user")
     member x.OpenConversation userId =
