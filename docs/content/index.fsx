@@ -135,6 +135,12 @@ If you are using Paket, simply append 2 lines in your paket.dependencies:
 
 Then you will be able to add slack notifications in your targets
 
+    [lang=fsharp]
+    Target "NotifyAppReleased" (fun _ ->
+        slack.Channels.general.Send "Hi !"
+        slack.Channels.general.Send "A new Android version of MyApp is on HockeyApp."
+    )
+
 ***
 
 *)
