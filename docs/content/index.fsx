@@ -133,7 +133,7 @@ If you are using Paket, simply append 2 lines in your paket.dependencies:
     #r "packages/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll"
     #r "packages/SlackTypeProvider/lib/net40/SlackTypeProvider.dll"
 
-Then use will be able to add slack notifications in your targets
+Then you will be able to add slack notifications in your targets
 
 ***
 
