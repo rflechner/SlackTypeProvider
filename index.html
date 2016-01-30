@@ -188,6 +188,18 @@ nuget SlackTypeProvider
 </tr>
 </table>
 <p>Then you will be able to add slack notifications in your targets</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Target</span> <span class="s">&quot;NotifyAppReleased&quot;</span> (<span class="k">fun</span> _ <span class="k">-&gt;</span>
+    <span class="i">slack</span><span class="o">.</span><span class="i">Channels</span><span class="o">.</span><span class="i">general</span><span class="o">.</span><span class="i">Send</span> <span class="s">&quot;Hi !&quot;</span>
+    <span class="i">slack</span><span class="o">.</span><span class="i">Channels</span><span class="o">.</span><span class="i">general</span><span class="o">.</span><span class="i">Send</span> <span class="s">&quot;A new Android version of MyApp is on HockeyApp.&quot;</span>
+)
+</code></pre></td>
+</tr>
+</table>
 </section>
 
 
