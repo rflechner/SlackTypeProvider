@@ -39,9 +39,7 @@ Get an API token
 
 Get your token at url: https://api.slack.com/tokens
 
-#### Method2: Using your account
-
-Create a bot account.
+#### Method2: Create a bot account
 
 Go to https://{your_company}.slack.com/apps/manage 
 
