@@ -5,8 +5,6 @@
 #r "FakeLib.dll"
 #r "Suave.dll"
 
-//#load "fsreveal.fsx"
-
 #load "../../FSharp.Formatting/FSharp.Formatting.fsx"
 #I "packages/FsReveal/lib/net40"
 #r "FsReveal.dll"

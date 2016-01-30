@@ -7,15 +7,51 @@
 
 ***
 
-### What is SlackTypeProvider?
+#Slack TypeProvider
 
-- A tiny type provider to use Slack API
+![Image of LoveFsharp](images/IHeartFsharp160.png)
+![Image of SlackLogo](images/slack_rgb_small.png)
+
+<small>
+by [@rflechner](https://twitter.com/rflechner)
+</small>
 
 ***
 
-### What is the use?
+## What is Slack TypeProvider?
+
+- A small F# library providing properties and methods generated form Slack API
+- An experimental use of F# Type Providers
+
+***
+
+## What is the use?
 
 - Write a little bot sending messages on Slack with an autocomplete on user or channel list.
+
+***
+
+## Getting started
+
+Get an API token
+
+#### Method1: Using your account
+
+Get your token at url: https://api.slack.com/tokens
+
+#### Method2: Using your account
+
+Create a bot account.
+
+Go to https://{your_company}.slack.com/apps/manage 
+
+Then click on "Custom Integrations" and "Bots"
+
+***
+
+## NuGet
+
+Get the [NuGet package](https://www.nuget.org/packages/SlackTypeProvider/)
 
 ***
 
@@ -57,7 +93,49 @@ slack.Users.romain_flechner
         botname="robot 4", 
         iconUrl="http://statics.romcyber.com/icones/robot1_48x48.jpg")
 
-
 (**
 ***
+
+# For FAKE users
+
+See [FAKE](http://fsharp.github.io/FAKE/) website.
+
+***
+
+## Modify your build.cmd or build.bat
+
+In a project using NuGet, you can have something like:
+
+    [lang=shell]
+    @echo off
+    cls
+    ".nuget\NuGet.exe" "Install" "FAKE" 
+        "-OutputDirectory" "packages" "-ExcludeVersion"
+    ".nuget\NuGet.exe" "Install" "SlackTypeProvider" 
+        "-OutputDirectory" "packages" "-ExcludeVersion"
+    ".nuget\NuGet.exe" "Install" "Newtonsoft.Json" 
+        "-OutputDirectory" "packages" "-Version" "8.0.2"
+    "packages\FAKE\tools\Fake.exe" build.fsx %2
+
+---
+
+If you are using Paket, simply append 2 lines in your paket.dependencies:
+
+    [lang=text]
+    nuget Newtonsoft.Json
+    nuget SlackTypeProvider
+
+***
+
+## Modify your build.fsx
+
+    [lang=fsharp]
+    #r "packages/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll"
+    #r "packages/SlackTypeProvider/lib/net40/SlackTypeProvider.dll"
+
+Then use will be able to add slack notifications in your targets
+
+***
+
 *)
+
