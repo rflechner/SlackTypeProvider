@@ -72,7 +72,7 @@ open System.Net
 (**
 See example below
 
-![Image of example1](images/SlackProvider2.gif)
+![Image of example1](images/SlackProvider3.gif)
 
 ---
 
