@@ -1,67 +1,63 @@
-(*** hide ***)
-// This block of code is omitted in the generated HTML documentation. Use 
-// it to define helpers that you do not want to show in the documentation.
-#I "../../bin"
-
 (**
-SlackTypeProvider
-======================
+- title : SlackTypeProvider 
+- description : Introduction to SlackTypeProvider
+- author : Romain Flechner
+- theme : league
+- transition : default
 
-Documentation
+***
 
-<div class="row">
-  <div class="span1"></div>
-  <div class="span6">
-    <div class="well well-small" id="nuget">
-      The SlackTypeProvider library can be <a href="https://nuget.org/packages/SlackTypeProvider">installed from NuGet</a>:
-      <pre>PM> Install-Package SlackTypeProvider</pre>
-    </div>
-  </div>
-  <div class="span1"></div>
-</div>
+### What is SlackTypeProvider?
 
-Example
--------
+- A tiny type provider to use Slack API
 
-This example demonstrates using a function defined in this sample library.
+***
+
+### What is the use?
+
+- Write a little bot sending messages on Slack with an autocomplete on user or channel list.
+
+***
+
+### Is it easy to use ?
 
 *)
-#r "SlackTypeProvider.dll"
-open SlackTypeProvider
 
-printfn "hello = %i" <| Library.hello 0
+(*** hide ***)
+#I @"../../packages/Newtonsoft.Json/lib/net40"
+#r "Newtonsoft.Json.dll"
+#I "../../src/SlackTypeProvider/bin/Debug"
+#r "SlackTypeProvider.dll"
+
+open System
+open System.IO
+open System.Net
 
 (**
-Some more info
+See example below
 
-Samples & documentation
------------------------
+![Image of example1](images/SlackProvider2.gif)
 
-The library comes with comprehensible documentation. 
-It can include tutorials automatically generated from `*.fsx` files in [the content folder][content]. 
-The API reference is automatically generated from Markdown comments in the library implementation.
+---
 
- * [Tutorial](tutorial.html) contains a further explanation of this sample library.
+*)
 
- * [API Reference](reference/index.html) contains automatically generated documentation for all types, modules
-   and functions in the library. This includes additional brief samples on using most of the
-   functions.
- 
-Contributing and copyright
---------------------------
+open SlackProvider
 
-The project is hosted on [GitHub][gh] where you can [report issues][issues], fork 
-the project and submit pull requests. If you're adding a new public API, please also 
-consider adding [samples][content] that can be turned into a documentation. You might
-also want to read the [library design notes][readme] to understand how it works.
+//You can provide a file path or an URL or a raw token
+type TSlack = SlackTypeProvider<token="C:/keys/slack_token.txt">
+let slack = TSlack()
 
-The library is available under Public Domain license, which allows modification and 
-redistribution for both commercial and non-commercial purposes. For more information see the 
-[License file][license] in the GitHub repository. 
+slack.Channels.xamarininsights.Send("test")
+slack.Users.romain_flechner.Send("Hi !")
 
-  [content]: https://github.com/fsprojects/SlackTypeProvider/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/SlackTypeProvider
-  [issues]: https://github.com/fsprojects/SlackTypeProvider/issues
-  [readme]: https://github.com/fsprojects/SlackTypeProvider/blob/master/README.md
-  [license]: https://github.com/fsprojects/SlackTypeProvider/blob/master/LICENSE.txt
+// Or with custom image and/or name
+slack.Users.romain_flechner
+    .Send("I am a bot",
+        botname="robot 4", 
+        iconUrl="http://statics.romcyber.com/icones/robot1_48x48.jpg")
+
+
+(**
+***
 *)

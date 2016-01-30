@@ -1,7 +1,18 @@
 NUGET
   remote: https://www.nuget.org/api/v2
   specs:
+    FSharp.Compiler.Service (1.4.2.3)
+    FSharp.Core (4.0.0.1)
+    FSharp.Formatting (2.13.5)
+      FSharp.Compiler.Service (>= 1.4.2 < 1.5.0)
+      FSharpVSPowerTools.Core (>= 2.2.0 < 2.3.0)
+    FSharpVSPowerTools.Core (2.2.0)
+      FSharp.Compiler.Service (>= 1.4.2.0)
+    FsReveal (1.1.2)
+      FSharp.Formatting (>= 2.11.0)
     Newtonsoft.Json (8.0.2)
+    Suave (1.1.0)
+      FSharp.Core (>= 3.1.2.5)
 
 GROUP Build
 NUGET
