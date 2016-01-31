@@ -117,26 +117,43 @@ In a project using NuGet, you can have something like:
 
 ---
 
-If you are using Paket, simply append 2 lines in your paket.dependencies:
+If you are using Paket, simply append next lines in your paket.dependencies:
 
-    [lang=text]
-    nuget Newtonsoft.Json
-    nuget SlackTypeProvider
+    [lang=paket]
+    group Build
+        source https://nuget.org/api/v2
+        nuget Newtonsoft.Json
+        nuget SlackTypeProvider
 
 ***
 
 ## Modify your build.fsx
 
+Load assemblies
+
+__ With NuGet __
+
     [lang=fsharp]
     #r "packages/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll"
     #r "packages/SlackTypeProvider/lib/net40/SlackTypeProvider.dll"
+
+---
+
+__ With the Paket example __
+
+    [lang=fsharp]
+    #r "packages/build/Newtonsoft.Json/lib/net45/Newtonsoft.Json.dll"
+    #r "packages/build/SlackTypeProvider/lib/net40/SlackTypeProvider.dll"
+
+---
 
 Then you will be able to add slack notifications in your targets
 
     [lang=fsharp]
     Target "NotifyAppReleased" (fun _ ->
         slack.Channels.general.Send "Hi !"
-        slack.Channels.general.Send "A new Android version of MyApp is on HockeyApp."
+        slack.Channels.general.
+            Send "A new Android version of MyApp is on HockeyApp."
     )
 
 ***

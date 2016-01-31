@@ -8,7 +8,7 @@ NUGET
       FSharpVSPowerTools.Core (>= 2.2.0 < 2.3.0)
     FSharpVSPowerTools.Core (2.2.0)
       FSharp.Compiler.Service (>= 1.4.2.0)
-    FsReveal (1.1.2)
+    FsReveal (1.2.0)
       FSharp.Formatting (>= 2.11.0)
     Newtonsoft.Json (8.0.2)
     Suave (1.1.0)
