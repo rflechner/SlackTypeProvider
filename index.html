@@ -102,7 +102,7 @@ by <a href="https://twitter.com/rflechner">@rflechner</a>
 <p>See example below</p>
 <p><img src="images/SlackProvider3.gif" alt="Image of example1" /></p>
 </section>
-<section author="Romain Flechner" description="Introduction to SlackTypeProvider" theme="league" title="SlackTypeProvider" transition="default">
+<section >
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -166,18 +166,25 @@ cls
 "packages\FAKE\tools\Fake.exe" build.fsx %2
 </code></pre></td></tr></table>
 </section>
-<section author="Romain Flechner" description="Introduction to SlackTypeProvider" theme="league" title="SlackTypeProvider" transition="default">
+<section >
 <p>If you are using Paket, simply append 2 lines in your paket.dependencies:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip"><code lang="text">nuget Newtonsoft.Json
-nuget SlackTypeProvider
+<td class="snippet"><pre class="fssnip highlighted"><code lang="paket"><span class="k">group</span> Build
+    <span class="k">source</span> https://nuget.org/api/v2
+    <span class="k">nuget </span>Newtonsoft.Json
+    <span class="k">nuget </span>SlackTypeProvider
 </code></pre></td></tr></table>
 </section>
 </section>
 <section >
+<section >
 <h2>Modify your build.fsx</h2>
+<p>Load assemblies</p>
+<p><strong> With NuGet </strong></p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -186,19 +193,35 @@ nuget SlackTypeProvider
 </code></pre></td>
 </tr>
 </table>
+</section>
+<section >
+<p><strong> With the Paket example </strong></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#r</span> <span class="s">&quot;packages/build/Newtonsoft.Json.8.0.2/lib/net45/Newtonsoft.Json.dll&quot;</span>
+<span class="prep">#r</span> <span class="s">&quot;packages/build/SlackTypeProvider/lib/net40/SlackTypeProvider.dll&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
 <p>Then you will be able to add slack notifications in your targets</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
+<span class="l">5: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Target</span> <span class="s">&quot;NotifyAppReleased&quot;</span> (<span class="k">fun</span> _ <span class="k">-&gt;</span>
     <span class="i">slack</span><span class="o">.</span><span class="i">Channels</span><span class="o">.</span><span class="i">general</span><span class="o">.</span><span class="i">Send</span> <span class="s">&quot;Hi !&quot;</span>
-    <span class="i">slack</span><span class="o">.</span><span class="i">Channels</span><span class="o">.</span><span class="i">general</span><span class="o">.</span><span class="i">Send</span> <span class="s">&quot;A new Android version of MyApp is on HockeyApp.&quot;</span>
+    <span class="i">slack</span><span class="o">.</span><span class="i">Channels</span><span class="o">.</span><span class="i">general</span><span class="o">.</span>
+        <span class="i">Send</span> <span class="s">&quot;A new Android version of MyApp is on HockeyApp.&quot;</span>
 )
 </code></pre></td>
 </tr>
 </table>
+</section>
 </section>
 
 
