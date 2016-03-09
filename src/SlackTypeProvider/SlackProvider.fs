@@ -3,7 +3,6 @@ namespace ProviderImplementation
 open ProviderImplementation.ProvidedTypes
 open Microsoft.FSharp.Core.CompilerServices
 open System.Reflection
-open FSharp.Data
 open System
 open System.IO
 open System.Net
