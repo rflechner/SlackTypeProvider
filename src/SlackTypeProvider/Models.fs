@@ -3,7 +3,6 @@
 open System
 open System.Net
 open System.Text
-open FSharp.Data
 open Newtonsoft.Json
 open Newtonsoft.Json.Linq
 
