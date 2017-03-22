@@ -1,3 +1,7 @@
+
+#### 0.0.6 - March 22 2017
+* prevent from request count restrictions (HTTP 429)
+
 #### 0.0.5 - January 29 2016
 * improve FAKE integration
 

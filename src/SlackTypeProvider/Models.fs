@@ -1,6 +1,7 @@
 ﻿namespace SlackProvider.Models
 
 open System
+open System.Runtime.Caching
 open System.Net
 open System.Text
 open Newtonsoft.Json
@@ -56,6 +57,18 @@ type SentMessage =
       IconUrl:string option }
 
 type SlackClient (token) =
+    static let cache = new MemoryCache("REST")
+    let cacheAndReturns key (f:unit -> 't) =
+      if cache.Contains key
+      then 
+        cache.Get(key) :?> 't
+      else
+        let result = f()
+        let policy = new CacheItemPolicy()
+        policy.SlidingExpiration <- TimeSpan.FromMinutes 1.
+        cache.Add(key, result, policy) |> ignore
+        result
+
     let download (endpoint:string) =
         let sep = if endpoint.Contains "?" then '&' else '?'
         let url = sprintf "%s%ctoken=%s" endpoint sep token
@@ -66,11 +79,11 @@ type SlackClient (token) =
         |> fun o -> o.SelectToken path
         |> fun tk -> tk.ToObject<'t>()
     member x.CheckAuth () =
-        x.downloadJson<AuthResult>("https://slack.com/api/auth.test","$")
+        cacheAndReturns "Auth" (fun _ -> x.downloadJson<AuthResult>("https://slack.com/api/auth.test","$"))
     member x.GetChannels () =
-        x.downloadJson<ChannelDescription array>("https://slack.com/api/channels.list","$.channels")
+        cacheAndReturns "channels" (fun _ -> x.downloadJson<ChannelDescription array>("https://slack.com/api/channels.list","$.channels"))
     member x.GetUsers () =
-        x.downloadJson<User array>("https://slack.com/api/users.list","$.members")
+        cacheAndReturns "users" (fun _ -> x.downloadJson<User array>("https://slack.com/api/users.list","$.members"))
     member x.GetUser id =
         x.downloadJson<User>(sprintf "https://slack.com/api/users.info?user=%s" id,"$.user")
     member x.OpenConversation userId =
