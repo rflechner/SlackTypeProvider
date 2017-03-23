@@ -52,6 +52,7 @@
     <Compile Include="SlackProvider.fs" />
     <Compile Include="Library.fs" />
     <None Include="Script.fsx" />
+    <None Include="Script2.fsx" />
     <None Include="paket.references" />
     <None Include="paket.template" />
   </ItemGroup>
