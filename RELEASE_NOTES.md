@@ -1,4 +1,7 @@
 
+#### 0.0.7 - March 22 2017
+* Can send file to users and channels
+
 #### 0.0.6 - March 22 2017
 * prevent from request count restrictions (HTTP 429)
 

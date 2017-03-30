@@ -138,7 +138,7 @@ Target "NuGet" (fun _ ->
 )
 
 Target "PublishNuget" (fun _ ->
-    let key = File.ReadAllText "G:/nugetkey.txt"
+    let key = File.ReadAllText @"C:\keys\nugetkey.txt"
     Paket.Push(fun p ->
         { p with
             ApiKey = key

@@ -95,6 +95,33 @@ type SlackTypeProvider () as this =
             do sendMessageMeth.AddXmlDoc "Send a message to a channel"
             do channelType.AddMember sendMessageMeth
 
+            let sendFileMeth = 
+                    ProvidedMethod(
+                        methodName = "SendFile", 
+                        parameters = [
+                            ProvidedParameter("text", typeof<string>)
+                            ProvidedParameter("filepath", typeof<string>)
+                            ProvidedParameter("title", typeof<string>, optionalValue="")
+                            ],
+                        returnType = typeof<unit>, 
+                        InvokeCode = 
+                            fun args -> 
+                                <@@ 
+                                    let channel = ((%%args.[0]:>obj):?>ChannelDescription)
+                                    let text = %%args.[1]:>string
+                                    let filepath = %%args.[2]:>string
+                                    let title = %%args.[3]:>string
+                                    SlackClient(token).SendFile(fun m -> 
+                                            { m with 
+                                                ChannelId=channel.Id
+                                                Text=text
+                                                Title=if String.IsNullOrWhiteSpace title then None else Some title
+                                                Filepath=filepath
+                                            })
+                                @@>)
+            do sendFileMeth.AddXmlDoc "Send a file to a channel"
+            do channelType.AddMember sendFileMeth
+
             do ProvidedProperty("Description", typeof<ChannelDescription>,
                   GetterCode=fun args -> 
                     <@@
@@ -195,6 +222,33 @@ type SlackTypeProvider () as this =
                                 @@>)
             do sendMessageMeth.AddXmlDoc "Send a message to a channel"
             do userType.AddMember sendMessageMeth
+
+            let sendFileMeth = 
+                    ProvidedMethod(
+                        methodName = "SendFile", 
+                        parameters = [
+                            ProvidedParameter("text", typeof<string>)
+                            ProvidedParameter("filepath", typeof<string>)
+                            ProvidedParameter("title", typeof<string>, optionalValue="")
+                            ],
+                        returnType = typeof<unit>, 
+                        InvokeCode = 
+                            fun args -> 
+                                <@@ 
+                                    let user = ((%%args.[0]:>obj):?>User)
+                                    let text = %%args.[1]:>string
+                                    let filepath = %%args.[2]:>string
+                                    let title = %%args.[3]:>string
+                                    SlackClient(token).SendFile(fun m -> 
+                                            { m with 
+                                                ChannelId=user.Id
+                                                Text=text
+                                                Title=if String.IsNullOrWhiteSpace title then None else Some title
+                                                Filepath=filepath
+                                            })
+                                @@>)
+            do sendFileMeth.AddXmlDoc "Send a file to an user"
+            do userType.AddMember sendFileMeth
 
             do ProvidedProperty("Description", typeof<User>,
                   GetterCode=fun args -> 

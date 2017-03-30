@@ -133,9 +133,7 @@ type SlackClient (token) =
         m.Text |> Uri.EscapeDataString |> b.Append |> ignore
         b.Append "&filename=" |> ignore
         m.Filepath |> System.IO.Path.GetFileName |> Uri.EscapeDataString |> b.Append |> ignore
-        
         let url = b.ToString()
-
         let client = new WebClient()
-        client.UploadFile(url, m.Filepath)
-        //x.downloadJson<bool>(url, "$.ok")
+        client.UploadFile(url, m.Filepath) |> ignore
+
