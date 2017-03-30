@@ -56,6 +56,14 @@ type SentMessage =
       AsUser:bool
       IconUrl:string option }
 
+type SentFile =
+    { ChannelId:string
+      Text:string
+      Filepath:string
+      Title:string option }
+    static member Empty =
+      { ChannelId=""; Text=""; Filepath=""; Title=None }
+
 type SlackClient (token) =
     static let cache = new MemoryCache("REST")
     let cacheAndReturns key (f:unit -> 't) =
@@ -114,3 +122,18 @@ type SlackClient (token) =
 
         let url = b.ToString()
         x.downloadJson<bool>(url, "$.ok")
+
+    member x.SendFile (f:SentFile->SentFile) =
+        let m = f SentFile.Empty
+        let b = StringBuilder "https://slack.com/api/files.upload?token="
+        b.Append token |> ignore
+        b.Append "&channels=" |> ignore
+        m.ChannelId |> Uri.EscapeDataString |> b.Append |> ignore
+        b.Append "&title=" |> ignore
+        m.Text |> Uri.EscapeDataString |> b.Append |> ignore
+        b.Append "&filename=" |> ignore
+        m.Filepath |> System.IO.Path.GetFileName |> Uri.EscapeDataString |> b.Append |> ignore
+        let url = b.ToString()
+        let client = new WebClient()
+        client.UploadFile(url, m.Filepath) |> ignore
+
