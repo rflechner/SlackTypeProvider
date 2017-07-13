@@ -9,8 +9,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>SlackTypeProvider</RootNamespace>
     <AssemblyName>SlackTypeProvider</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
     <Name>SlackTypeProvider</Name>
     <TargetFrameworkProfile />
   </PropertyGroup>
